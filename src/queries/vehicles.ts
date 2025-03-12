@@ -1,25 +1,6 @@
-const GRAPHQL_API = 'https://vortex.korabli.su/api/graphql/glossary/';
+import type { Vehicle } from '@/types/vehicle';
 
-export interface Vehicle {
-    title: string;
-    description: string;
-    icons: {
-        large: string;
-        medium: string;
-    };
-    level: number;
-    type: {
-        name: string;
-        title: string;
-        icons: { default: string };
-    };
-    nation: {
-        name: string;
-        title: string;
-        color: string;
-        icons: { large: string };
-    };
-}
+const GRAPHQL_API = 'https://vortex.korabli.su/api/graphql/glossary/';
 
 const query = `
 query Vehicles($languageCode: String) {
