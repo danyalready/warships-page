@@ -6,6 +6,8 @@ import InfiniteScroll from './InfiniteScroll';
 import VehicleCard from './VehicleCard';
 import FiltersForm from './FiltersForm';
 import { LEVELS, NATIONS, TYPES } from '@/constants/filters';
+import FilterIcon from '@/assets/icons/FilterIcon';
+import Drawer from './Drawer';
 
 const ITEMS_PER_PAGE = 36;
 
@@ -15,9 +17,12 @@ interface Props {
 
 export default function Vehicles({ vehicles }: Props) {
     const layoutRef = useRef<HTMLDivElement>(null);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
     const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
     const [selectedTypes, setSelectedTypes] = useState<VehicleType[]>([]);
     const [selectedNations, setSelectedNations] = useState<VehicleNation[]>([]);
+
     const [visibleItems, setVisibleItems] = useState<Vehicle[]>([]);
     const [pageIndex, setPageIndex] = useState(ITEMS_PER_PAGE);
 
@@ -46,6 +51,42 @@ export default function Vehicles({ vehicles }: Props) {
         handleLoadMore();
     }, [filteredVehicles, handleLoadMore]);
 
+    const renderFiltersForm = () => (
+        <FiltersForm
+            onClickReset={() => {
+                setSelectedLevels([]);
+                setSelectedTypes([]);
+                setSelectedNations([]);
+            }}
+            filterGroups={[
+                {
+                    label: 'Уровень',
+                    filterOptions: LEVELS,
+                    selected: selectedLevels,
+                    onChange: (values) => {
+                        setSelectedLevels(values);
+                    },
+                },
+                {
+                    label: 'Класс',
+                    filterOptions: TYPES,
+                    selected: selectedTypes,
+                    onChange: (values) => {
+                        setSelectedTypes(values as VehicleType[]);
+                    },
+                },
+                {
+                    label: 'Нация',
+                    filterOptions: NATIONS,
+                    selected: selectedNations,
+                    onChange: (values) => {
+                        setSelectedNations(values as VehicleNation[]);
+                    },
+                },
+            ]}
+        />
+    );
+
     return (
         <div className="min-h-dvh bg-[url('/images/background-texture.jpg')] bg-contain pb-20">
             <div className="relative h-[480px] lg:aspect-[1900/704] lg:h-auto">
@@ -68,52 +109,32 @@ export default function Vehicles({ vehicles }: Props) {
             </div>
 
             <div ref={layoutRef} className="mx-auto flex max-w-[1449px] gap-x-4 px-11 pt-6">
-                <InfiniteScroll<Vehicle>
-                    data={visibleItems}
-                    canLoadMore={pageIndex < filteredVehicles.length}
-                    itemRenderer={(vehicle, index) => <VehicleCard key={index} vehicle={vehicle} />}
-                    onLoadMore={handleLoadMore}
-                    className="w-full min-h-dvh"
-                    wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 md:grid-cols-2 xl:grid-cols-3"
-                />
-                <div className="hidden max-w-[280px] min-w-[280px] lg:block">
-                    <div className="sticky top-4">
-                        <FiltersForm
-                            onClickReset={() => {
-                                setSelectedLevels([]);
-                                setSelectedTypes([]);
-                                setSelectedNations([]);
-                            }}
-                            filterGroups={[
-                                {
-                                    label: 'Уровень',
-                                    filterOptions: LEVELS,
-                                    selected: selectedLevels,
-                                    onChange: (values) => {
-                                        setSelectedLevels(values);
-                                    },
-                                },
-                                {
-                                    label: 'Класс',
-                                    filterOptions: TYPES,
-                                    selected: selectedTypes,
-                                    onChange: (values) => {
-                                        setSelectedTypes(values as VehicleType[]);
-                                    },
-                                },
-                                {
-                                    label: 'Нация',
-                                    filterOptions: NATIONS,
-                                    selected: selectedNations,
-                                    onChange: (values) => {
-                                        setSelectedNations(values as VehicleNation[]);
-                                    },
-                                },
-                            ]}
-                        />
+                <div>
+                    <div className="flex justify-end items-center pb-6 lg:hidden">
+                        <button
+                            onClick={() => setIsDrawerOpen(true)}
+                            className="flex items-center cursor-pointer gap-2 bg-gray-800 text-white hover:bg-gray-700 px-4 py-2 rounded-md"
+                        >
+                            <FilterIcon size={18} />
+                        </button>
                     </div>
+                    <InfiniteScroll<Vehicle>
+                        data={visibleItems}
+                        canLoadMore={pageIndex < filteredVehicles.length}
+                        itemRenderer={(vehicle, index) => <VehicleCard key={index} vehicle={vehicle} />}
+                        onLoadMore={handleLoadMore}
+                        className="w-full min-h-dvh"
+                        wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 md:grid-cols-2 xl:grid-cols-3"
+                    />
+                </div>
+                <div className="hidden max-w-[280px] min-w-[280px] lg:block">
+                    <div className="sticky top-4">{renderFiltersForm()}</div>
                 </div>
             </div>
+
+            <Drawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+                {renderFiltersForm()}
+            </Drawer>
         </div>
     );
 }
