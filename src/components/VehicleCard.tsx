@@ -17,8 +17,8 @@ export default function VehicleCard({ vehicle }: Props) {
 
             <div className="p-5">
                 <h2 className="text-xl font-bold mb-1">{vehicle.title}</h2>
-                <p className="text-sm text-gray-400 mb-2 flex gap-1">
-                    <Image src={getFlagUrl(vehicle.nation.name)} alt={vehicle.nation.title} width={16} height={0} className="h-4 w-auto" /> ⭐{' '}
+                <p className="text-sm text-gray-400 mb-2 flex items-center gap-1">
+                    <Image src={getFlagUrl(vehicle.nation.name)} alt={vehicle.nation.title} width={16} height={0} className="h-4 w-auto" />
                     {toRoman(vehicle.level)} Уровня
                 </p>
 

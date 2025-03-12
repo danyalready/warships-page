@@ -19,7 +19,7 @@ export default function Vehicles({ vehicles }: Props) {
     const [selectedTypes, setSelectedTypes] = useState<VehicleType[]>([]);
     const [selectedNations, setSelectedNations] = useState<VehicleNation[]>([]);
     const [visibleItems, setVisibleItems] = useState<Vehicle[]>([]);
-    const [pageIndex, setPageIndex] = useState(0);
+    const [pageIndex, setPageIndex] = useState(ITEMS_PER_PAGE);
 
     const filteredVehicles = useMemo(() => {
         return vehicles.filter((vehicle) => {
@@ -42,7 +42,7 @@ export default function Vehicles({ vehicles }: Props) {
     }, [filteredVehicles]);
 
     useEffect(() => {
-        setPageIndex(0);
+        setPageIndex(ITEMS_PER_PAGE);
         handleLoadMore();
     }, [filteredVehicles, handleLoadMore]);
 
@@ -67,12 +67,13 @@ export default function Vehicles({ vehicles }: Props) {
                 </div>
             </div>
 
-            <div className="mx-auto flex max-w-[1449px] gap-x-4 px-11 pt-6">
+            <div ref={layoutRef} className="mx-auto flex max-w-[1449px] gap-x-4 px-11 pt-6">
                 <InfiniteScroll<Vehicle>
                     data={visibleItems}
                     canLoadMore={pageIndex < filteredVehicles.length}
                     itemRenderer={(vehicle, index) => <VehicleCard key={index} vehicle={vehicle} />}
                     onLoadMore={handleLoadMore}
+                    className="w-full min-h-dvh"
                     wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 md:grid-cols-2 xl:grid-cols-3"
                 />
                 <div className="hidden max-w-[280px] min-w-[280px] lg:block">
