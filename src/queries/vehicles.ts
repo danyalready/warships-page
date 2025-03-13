@@ -9,6 +9,7 @@ query Vehicles($languageCode: String) {
     description
     icons {
       medium
+      large
     }
     level
     type {
@@ -23,8 +24,6 @@ query Vehicles($languageCode: String) {
       title
       color
       icons {
-        small
-        medium
         large
       }
     }

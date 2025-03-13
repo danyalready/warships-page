@@ -1,5 +1,5 @@
 import CloseIcon from '@/assets/icons/CloseIcon';
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
 
 interface Props {
     isOpen: boolean;

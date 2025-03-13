@@ -1,7 +1,8 @@
 import Image from 'next/image';
-import { Vehicle } from '@/types/vehicle';
+import type { Vehicle } from '@/types/vehicle';
 import { getFlagUrl } from '@/utils/getImgUrls';
 import { toRoman } from '@/utils/toRoman';
+import ProgressiveImage from './ProgressiveImage';
 
 interface Props {
     vehicle: Vehicle;
@@ -18,8 +19,9 @@ export default function VehicleCard({ vehicle }: Props) {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="rounded-t-lg object-cover"
                 />
-                <Image
-                    src={`https:${vehicle.icons.medium}`}
+                <ProgressiveImage
+                    lowSrc={`https:${vehicle.icons.medium}`}
+                    highSrc={`https:${vehicle.icons.large}`}
                     alt={vehicle.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
