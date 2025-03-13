@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 interface Props<T> {
     data: T[];
     canLoadMore: boolean;
-    itemRenderer: (item: T, index: number) => React.ReactNode;
+    itemRenderer: (item: T) => React.ReactNode;
     onLoadMore: () => void;
 
     wrapperClassName?: string;
@@ -55,7 +55,7 @@ export default function InfiniteScroll<T extends object>({ data, itemRenderer, c
 
     return (
         <div className={className}>
-            <div className={wrapperClassName}>{data.map((item, index) => itemRenderer(item, index))}</div>
+            <div className={wrapperClassName}>{data.map((item) => itemRenderer(item))}</div>
 
             <div ref={observerRef} className="h-20" />
 

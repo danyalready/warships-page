@@ -121,7 +121,7 @@ export default function Vehicles({ vehicles }: Props) {
                     <InfiniteScroll<Vehicle>
                         data={visibleItems}
                         canLoadMore={pageIndex < filteredVehicles.length}
-                        itemRenderer={(vehicle, index) => <VehicleCard key={index} vehicle={vehicle} />}
+                        itemRenderer={(vehicle) => <VehicleCard key={vehicle.title} vehicle={vehicle} />}
                         onLoadMore={handleLoadMore}
                         className="w-full min-h-dvh"
                         wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2 xl:grid-cols-3"
