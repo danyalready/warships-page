@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { type PropsWithChildren, useEffect, useState } from 'react';
 
 const positionClasses = {
     top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
@@ -8,13 +8,12 @@ const positionClasses = {
 };
 
 interface Props {
-    text: string;
-    disabled?: boolean;
+    text?: string;
     delay?: number;
     position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-export default function Tooltip({ children, disabled, text, delay = 300, position = 'top' }: PropsWithChildren<Props>) {
+export default function Tooltip({ children, text, delay = 300, position = 'top' }: PropsWithChildren<Props>) {
     const [visible, setVisible] = useState(false);
     const [show, setShow] = useState(false);
 
@@ -30,7 +29,7 @@ export default function Tooltip({ children, disabled, text, delay = 300, positio
         return () => clearTimeout(timer);
     }, [visible, delay]);
 
-    if (disabled) return children;
+    if (!text) return children;
 
     return (
         <div className="relative inline-block" onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>

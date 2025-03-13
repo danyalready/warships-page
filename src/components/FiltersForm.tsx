@@ -1,14 +1,9 @@
 import FilterIcon from '@/assets/icons/FilterIcon';
-import CheckboxGroup from './CheckboxGroup';
-
-export interface FilterOption<T = string> {
-    label: React.ReactNode;
-    value: T;
-}
+import CheckboxGroup, { type CheckboxOption } from './CheckboxGroup';
 
 export interface FilterGroup<T = string> {
     label: string;
-    filterOptions: FilterOption<T>[];
+    filterOptions: CheckboxOption<T>[];
     selected: T[];
     onChange: (value: T[]) => void;
 }
@@ -46,6 +41,7 @@ export default function FiltersForm<T extends string>({ filterGroups, onClickRes
                     options={filterGroup.filterOptions.map((option) => ({
                         label: option.label,
                         value: option.value,
+                        tooltip: option.tooltip,
                     }))}
                     onChange={filterGroup.onChange}
                 />

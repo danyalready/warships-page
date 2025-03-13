@@ -1,8 +1,10 @@
 import Checkbox from './Checkbox';
+import Tooltip from './Tooltip';
 
-interface CheckboxOption<T = string> {
+export interface CheckboxOption<T = string> {
     label: React.ReactNode;
     value: T;
+    tooltip?: string;
 }
 
 interface Props<T = string> {
@@ -27,13 +29,9 @@ export default function CheckboxGroup<T extends string>({ label, selected, optio
 
             <div className="mt-2 grid grid-cols-3 gap-y-1 text-white">
                 {options.map((option) => (
-                    <Checkbox<T>
-                        key={option.value}
-                        label={option.label}
-                        checked={selected.includes(option.value)}
-                        name={option.value}
-                        onChange={handleChange}
-                    />
+                    <Tooltip key={option.value} text={option.tooltip} delay={500}>
+                        <Checkbox<T> label={option.label} checked={selected.includes(option.value)} name={option.value} onChange={handleChange} />
+                    </Tooltip>
                 ))}
             </div>
         </div>
