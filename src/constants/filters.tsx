@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { FilterOption } from '../components/FiltersForm';
-import { VehicleType, VehicleNation } from '../types/vehicle';
+import { FilterOption } from '@/components/FiltersForm';
+import { VehicleNation, VehicleType } from '@/types/vehicle';
 
 export const LEVELS: FilterOption<string>[] = [
     { label: 'I', value: '1' },
@@ -18,27 +18,77 @@ export const LEVELS: FilterOption<string>[] = [
 
 export const TYPES: FilterOption<VehicleType>[] = [
     {
-        label: <Image alt="Submarine" src="/images/vehicle-types/submarine.png" width={24} height={0} className="size-6 w-auto" />,
+        label: (
+            <div className="relative size-6">
+                <Image
+                    alt="Submarine"
+                    src="/images/vehicle-types/submarine.png"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
+            </div>
+        ),
         value: 'submarine',
         tooltip: 'Подводная лодка',
     },
     {
-        label: <Image alt="Destroyer" src="/images/vehicle-types/destroyer.png" width={24} height={0} className="size-6 w-auto" />,
+        label: (
+            <div className="relative size-6">
+                <Image
+                    alt="Destroyer"
+                    src="/images/vehicle-types/destroyer.png"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
+            </div>
+        ),
         value: 'destroyer',
         tooltip: 'Эсминец',
     },
     {
-        label: <Image alt="Cruiser" src="/images/vehicle-types/cruiser.png" width={24} height={0} className="size-6 w-auto" />,
+        label: (
+            <div className="relative size-6">
+                <Image
+                    alt="Cruiser"
+                    src="/images/vehicle-types/cruiser.png"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
+            </div>
+        ),
         value: 'cruiser',
         tooltip: 'Крейсер',
     },
     {
-        label: <Image alt="Battleship" src="/images/vehicle-types/battleship.png" width={24} height={0} className="size-6 w-auto" />,
+        label: (
+            <div className="relative size-6">
+                <Image
+                    alt="Battleship"
+                    src="/images/vehicle-types/battleship.png"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
+            </div>
+        ),
         value: 'battleship',
         tooltip: 'Линкор',
     },
     {
-        label: <Image alt="AirCarrier" src="/images/vehicle-types/air_carrier.png" width={24} height={0} className="size-6 w-auto" />,
+        label: (
+            <div className="relative size-6">
+                <Image
+                    alt="AirCarrier"
+                    src="/images/vehicle-types/air_carrier.png"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover"
+                />
+            </div>
+        ),
         value: 'aircarrier',
         tooltip: 'Авианосец',
     },

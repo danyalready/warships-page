@@ -11,8 +11,20 @@ export default function VehicleCard({ vehicle }: Props) {
     return (
         <div className="max-w-lg w-full bg-gray-900 text-white  overflow-hidden border border-gray-700">
             <div className="relative w-full h-48">
-                <Image src={`https:${vehicle.nation.icons.large}`} alt={vehicle.nation.title} fill style={{ objectFit: 'cover' }} className="rounded-t-lg" />
-                <Image src={`https:${vehicle.icons.medium}`} alt={vehicle.title} fill style={{ objectFit: 'cover' }} className="rounded-t-lg" />
+                <Image
+                    src={`https:${vehicle.nation.icons.large}`}
+                    alt={vehicle.nation.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="rounded-t-lg object-cover"
+                />
+                <Image
+                    src={`https:${vehicle.icons.medium}`}
+                    alt={vehicle.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="rounded-t-lg object-cover"
+                />
             </div>
 
             <div className="p-5">

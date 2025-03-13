@@ -109,7 +109,7 @@ export default function Vehicles({ vehicles }: Props) {
             </div>
 
             <div ref={layoutRef} className="mx-auto flex max-w-[1449px] gap-x-4 px-11 pt-6">
-                <div>
+                <div className="w-full">
                     <div className="flex justify-end items-center pb-6 lg:hidden">
                         <button
                             onClick={() => setIsDrawerOpen(true)}
@@ -124,7 +124,7 @@ export default function Vehicles({ vehicles }: Props) {
                         itemRenderer={(vehicle, index) => <VehicleCard key={index} vehicle={vehicle} />}
                         onLoadMore={handleLoadMore}
                         className="w-full min-h-dvh"
-                        wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 md:grid-cols-2 xl:grid-cols-3"
+                        wrapperClassName="relative grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2 xl:grid-cols-3"
                     />
                 </div>
                 <div className="hidden max-w-[280px] min-w-[280px] lg:block">
