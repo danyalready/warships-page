@@ -16,6 +16,7 @@ interface Props {
 }
 
 export default function Vehicles({ vehicles }: Props) {
+    const didMount = useRef(false);
     const layoutRef = useRef<HTMLDivElement>(null);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -49,6 +50,14 @@ export default function Vehicles({ vehicles }: Props) {
     useEffect(() => {
         setPageIndex(ITEMS_PER_PAGE);
         handleLoadMore();
+
+        if (didMount.current) {
+            layoutRef.current?.scrollIntoView({
+                behavior: 'smooth',
+            });
+        }
+
+        didMount.current = true;
     }, [filteredVehicles, handleLoadMore]);
 
     const renderFiltersForm = () => (
