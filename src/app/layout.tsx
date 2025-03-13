@@ -15,9 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
     title: 'Корабли | «Мир кораблей»',
     description: 'Тестовое задание для Леста Игры',
-    icons: {
-        icon: '/favicon.png',
-    },
+    icons: { icon: '/icon.ico' },
 };
 
 export default function RootLayout({

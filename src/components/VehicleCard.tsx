@@ -34,7 +34,10 @@ export default function VehicleCard({ vehicle }: Props) {
                     {toRoman(vehicle.level)} Уровня
                 </p>
 
-                <div className="h-24 overflow-y-auto text-base text-gray-300  border-t border-gray-700 pt-2 scrollbar-thin scrollbar-thumb-gray-700">
+                <div
+                    tabIndex={-1}
+                    className="h-24 overflow-y-auto text-base text-gray-300  border-t border-gray-700 pt-2 scrollbar-thin scrollbar-thumb-gray-700"
+                >
                     {vehicle.description}
                 </div>
             </div>
