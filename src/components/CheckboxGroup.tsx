@@ -1,40 +1,36 @@
-import Checkbox from "./Checkbox";
+import Checkbox from './Checkbox';
 
-interface CheckboxOption {
-    title: React.ReactNode;
-    value: string;
-    tooltip?: string;
+interface CheckboxOption<T = string> {
+    label: React.ReactNode;
+    value: T;
 }
 
-interface Props {
+interface Props<T = string> {
     label: string;
-    value: string[];
-    options: CheckboxOption[];
-    onChange: (value: string[]) => void;
+    selected: T[];
+    options: CheckboxOption<T>[];
+    onChange: (value: T[]) => void;
 }
 
-export default function CheckboxGroup(props: Props) {
-    const handleChange = (value: string) => {
-        if (props.value.includes(value)) {
-            props.onChange(props.value.filter((v) => v !== value));
+export default function CheckboxGroup<T extends string>({ label, selected, options, onChange }: Props<T>) {
+    const handleChange = (value: T) => {
+        if (selected.includes(value)) {
+            onChange(selected.filter((v) => v !== value));
         } else {
-            props.onChange([...props.value, value]);
+            onChange([...selected, value]);
         }
     };
 
     return (
         <div className="border-b border-[#2D3A4A] p-2 px-4">
-            <label className="text-base font-bold text-white">
-                {props.label}
-            </label>
+            <label className="text-base font-bold text-white">{label}</label>
 
             <div className="mt-2 grid grid-cols-3 gap-y-1 text-white">
-                {props.options.map((option) => (
-                    <Checkbox
+                {options.map((option) => (
+                    <Checkbox<T>
                         key={option.value}
-                        label={option.title}
-                        tooltip={option.tooltip}
-                        checked={props.value.includes(option.value)}
+                        label={option.label}
+                        checked={selected.includes(option.value)}
                         name={option.value}
                         onChange={handleChange}
                     />

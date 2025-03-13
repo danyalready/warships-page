@@ -4,23 +4,22 @@ import CheckboxGroup from './CheckboxGroup';
 export interface FilterOption<T = string> {
     label: React.ReactNode;
     value: T;
-    tooltip?: string;
 }
 
-export interface FilterGroup {
+export interface FilterGroup<T = string> {
     label: string;
-    filterOptions: FilterOption[];
-    selected: string[];
-    onChange: (value: string[]) => void;
+    filterOptions: FilterOption<T>[];
+    selected: T[];
+    onChange: (value: T[]) => void;
 }
 
-interface Props {
-    filterGroups: FilterGroup[];
+interface Props<T = string> {
+    filterGroups: FilterGroup<T>[];
     onClickReset: () => void;
 }
 
-export default function FiltersForm(props: Props) {
-    const showResetButton = props.filterGroups.some((filterGroup) => filterGroup.selected.length);
+export default function FiltersForm<T extends string>({ filterGroups, onClickReset }: Props<T>) {
+    const showResetButton = filterGroups.some((filterGroup) => filterGroup.selected.length);
 
     return (
         <div className="border border-gray-700 bg-gray-900">
@@ -32,22 +31,21 @@ export default function FiltersForm(props: Props) {
                 {showResetButton && (
                     <button
                         className="cursor-pointer px-1 text-[#80878F] hover:brightness-125 focus:ring-2 focus:outline-none active:brightness-150"
-                        onClick={props.onClickReset}
+                        onClick={onClickReset}
                     >
                         Сбросить все
                     </button>
                 )}
             </div>
 
-            {props.filterGroups.map((filterGroup) => (
-                <CheckboxGroup
+            {filterGroups.map((filterGroup) => (
+                <CheckboxGroup<T>
                     key={filterGroup.label}
                     label={filterGroup.label}
-                    value={filterGroup.selected}
+                    selected={filterGroup.selected}
                     options={filterGroup.filterOptions.map((option) => ({
-                        title: option.label,
+                        label: option.label,
                         value: option.value,
-                        tooltip: option.tooltip,
                     }))}
                     onChange={filterGroup.onChange}
                 />

@@ -12,7 +12,7 @@ interface Props<T> {
     className?: string;
 }
 
-export default function InfiniteScroll<T>({ data, itemRenderer, canLoadMore, onLoadMore, wrapperClassName, className }: Props<T>) {
+export default function InfiniteScroll<T extends object>({ data, itemRenderer, canLoadMore, onLoadMore, wrapperClassName, className }: Props<T>) {
     const [showScrollTop, setShowScrollTop] = useState(false);
     const observerRef = useRef<HTMLDivElement | null>(null);
 

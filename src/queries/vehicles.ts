@@ -43,7 +43,7 @@ export async function getVehicles(languageCode = 'ru'): Promise<Vehicle[]> {
             query,
             variables: { languageCode },
         }),
-        cache: 'no-cache',
+        cache: 'no-cache', // Not caching because the API response is over 2MB
     });
     const { data } = await response.json();
 
